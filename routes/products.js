@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 var productModel = require('../model/product')
 var BrandModel = require('../model/brand')
+var TypeModel = require('../model/type')
 var ResHelper = require('../helper/ResponseHelper');
 const { query } = require('express');
 
@@ -82,16 +83,21 @@ router.post('/', async function (req, res, next) {
     try {
       // Kiểm tra xem Brand có tồn tại không
       const brand = await BrandModel.findOne({ Brandid: req.body.brandid });
+      const type = await TypeModel.findOne({ Typeid : req.body.typeid })
       if (!brand) {
           return res.status(404).json({ message: 'Brand not found' });
       }
+      if (!type) {
+        return res.status(404).json({ message: 'Type not found' });
+    }
 
       var newproduct = new productModel({
         productid: GenID(5),
         name: req.body.name,
         image: req.body.image,
         title: req.body.title,
-        Brandid: brand._id
+        Brandid: brand._id,
+        Typeid: type._id
       })
       await newproduct.save();
       ResHelper.RenderRes(res, true, newproduct)

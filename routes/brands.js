@@ -6,9 +6,9 @@ const { query } = require('express');
 
 router.get('/', async function (req, res, next) {
     try {
-      // Tìm tất cả các sách 
-      const undeletedBooks = await BrandModel.find({ isDeleted: false });
-      res.send(undeletedBooks);
+      // Tìm tất cả 
+      const undeleted = await BrandModel.find({ isDeleted: false });
+      res.send(undeleted);
     } catch (error) {
       console.error(error);
       res.status(500).send('Lỗi khi truy xuất thất bại');
