@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+/*product page. */
+router.use('/brand',require('./brands'));
+router.use('/product',require('./products'));
 
 module.exports = router;
