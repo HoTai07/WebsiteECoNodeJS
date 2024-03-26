@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 var EmployeeModel = require('../model/employee')
 var PositionModel = require('../model/position')
+var UserModel = require('../model/user')
 var ResHelper = require('../helper/ResponseHelper');
 const { query } = require('express');
 
@@ -22,12 +23,16 @@ router.post('/', async function (req, res, next) {
         if (!position) {
             return res.status(404).json({ message: 'position not found' });
         }
+        const user = await UserModel.findOne({ username : req.body.username })
+        if (!user) {
+            return res.status(404).json({ message: 'user not available' });
+        }
         var newEmployee = new EmployeeModel({
             Personid: req.body.id,
             name: req.body.name,
             positionid: position._id,
+            UserId: user._id,
             phonenum: req.body.phonenumber,
-            password: req.body.pwd,
             Email: req.body.Email
         })
         await newEmployee.save();

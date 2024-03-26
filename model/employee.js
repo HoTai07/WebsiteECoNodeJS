@@ -11,8 +11,11 @@ var EmployeeSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'position'
     },
+    UserId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
     phonenum: String,
-    password: String,
     Email: String,
     isDeleted: {
         type: Boolean,
