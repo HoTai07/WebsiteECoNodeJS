@@ -17,6 +17,17 @@ router.get('/', async function (req, res, next) {
     }
   });
 
+
+  function GenID(length){
+    let source = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      let rand = Math.floor(Math.random()*61);
+      result+=source[rand];
+    }
+    return result;
+  }
+
 router.post('/', async function (req, res, next) {
     try {
         const position = await PositionModel.findOne({ Positionid : req.body.positionid })
@@ -28,7 +39,7 @@ router.post('/', async function (req, res, next) {
             return res.status(404).json({ message: 'user not available' });
         }
         var newEmployee = new EmployeeModel({
-            Personid: req.body.id,
+            Personid: GenID(10),
             name: req.body.name,
             positionid: position._id,
             UserId: user._id,
