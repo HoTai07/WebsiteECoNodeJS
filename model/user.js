@@ -11,7 +11,7 @@ var userSchema = new mongoose.Schema({
     password: String,
     role: {
         type: [String],
-        default: ["USER"]
+        default: ["user"]
     },
     status: {
         type: Boolean,
