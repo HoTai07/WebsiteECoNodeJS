@@ -1,9 +1,9 @@
 
-Post http://localhost:3000/api/vzconn/auth/register
+Post http://localhost:3000/api/v1/vzconn/auth/register
 Content-Type: application/json
 
 {
-    "username": "truongtran04",
+    "username": "truongtran05",
     "password": "Truong@123",
     "email": "trantruong@gmail.com",
     "name": "Trần Nguyên Trường",
@@ -11,5 +11,35 @@ Content-Type: application/json
 }
 
 ###
+Post http://localhost:3000/api/v1/vzconn/auth/login
+Content-Type: application/json
 
-GET http://localhost:3000/api/vzconn/product
+{
+    "username": "truongtran05",
+    "password": "Truong@123"
+    
+}
+
+###
+Post http://localhost:3000/api/v1/vzconn/auth/logout
+
+
+###
+
+GET http://localhost:3000/api/v1/vzconn/user/
+
+###
+POST http://localhost:3000/api/v1/vzconn/auth/forgotPassword
+Content-Type: application/json
+
+{
+    "email": "trantruong@gmail.com"
+}
+
+###
+POST http://localhost:3000/api/v1/vzconn/auth/ResetPassword/d620a93f098cc0d6076de4b38868082c10abe26fa51d8f7f869a40549e5c
+Content-Type: application/json
+
+{
+    "password": "Truong@321"
+}
