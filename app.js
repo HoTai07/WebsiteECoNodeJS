@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/vzconn/',  require('./routes/index'));
+app.use('/api/v1/vzconn/',  require('./routes/index'));
 // app.use('/users', usersRouter);
 
 //Database config

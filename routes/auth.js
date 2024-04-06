@@ -7,6 +7,9 @@ var PositionModel = require('../model/position');
 var ResHelper = require('../helper/ResponseHelper');
 var userValidator = require('../validators/users');
 var { validationResult } = require('express-validator');
+var checkLogin = require('../middlewares/checklogin');
+const config = require('../configs/config');
+var sendmail = require('../helper/sendMail');
 
 
 
@@ -27,8 +30,21 @@ router.post('/login', async function (req, res, next) {
   if (result.error) {
     ResHelper.RenderRes(res, false, result.error);
   } else {
-    ResHelper.RenderRes(res, true, result.getJWT());
+    res.status(200)
+      .cookie('token', result.getJWT(), {
+        expires: new Date(Date.now + 24 * 3600 * 1000),
+        httpOnly: true
+      })
+      .send({
+        success: true,
+        data: result.getJWT()
+      }
+      );
+    //ResHelper.RenderRes(res, true, result.getJWT());
+
   }
+
+ 
 });
 
 function GenID(length){
@@ -96,5 +112,91 @@ router.post('/register', userValidator.checkChain(), async function (req, res, n
   }
 });
 
+
+router.post('/logout', checkLogin, function (req, res, next) {
+  if (req.cookies.token) {
+    res.status(200)
+      .cookie('token', "null", {
+        expires: new Date(Date.now + 1000),
+        httpOnly: true
+      })
+      .send({
+        success: true,
+        data: "Đã log out thành công"
+      }
+      );
+  }
+});
+
+router.post("/forgotPassword", userValidator.checkmail(), async function (req, res, next) {
+  const resultvalidate = validationResult(req);
+  if (resultvalidate.errors.length > 0) {
+    ResHelper.RenderRes(res, false, resultvalidate.errors);
+    return;
+  }
+  try{
+    var userIn = await customerModel.findOne({
+      Email: req.body.email
+    })
+
+  }catch(error)
+  {
+    var userIn = await employeeModel.findOne({
+      Email: req.body.email
+    })
+  }
+  if (userIn) {
+    
+    var user = await userModel.findOne({ _id: userIn.UserId });
+    console.log(user);
+   
+    
+    let token = user.genTokenResetPassword();
+    
+    await user.save()
+    try {
+      let url = `http://${config.hostName}/api/v1/vzconn/auth/ResetPassword/${token}`;
+      let message = `click zo url de reset passs: ${url}`
+      console.log(userIn.Email);
+      sendmail(message, userIn.Email)
+      ResHelper.RenderRes(res, true, "Thanh cong");
+    } catch (error) {
+      console.log(error);
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExp = undefined;
+      await user.save();
+      ResHelper.RenderRes(res, false, error);
+    }
+  } else {
+    ResHelper.RenderRes(res, false, "email khong ton tai");
+  }
+
+})
+
+router.post("/ResetPassword/:token", userValidator.checkPass(),async function (req, res, next) {
+  const resultvalidate = validationResult(req);
+  console.log(resultvalidate);
+  if (resultvalidate.errors.length > 0) {
+    ResHelper.RenderRes(res, false, resultvalidate.errors);
+    return;
+  }
+  var user = await userModel.findOne({
+    resetPasswordToken: req.params.token
+  })
+  if (user) {
+    if (user.resetPasswordExp > Date.now()) {
+      user.password = req.body.password;
+      user.resetPasswordToken = undefined;
+      user.resetPasswordExp = undefined;
+      await user.save();
+      ResHelper.RenderRes(res, true, "Reset thanh cong");
+    } else {
+      ResHelper.RenderRes(res, false, "URL het han");
+    }
+  } else {
+    ResHelper.RenderRes(res, false, "URL khong hop le");
+  }
+
+});
 
 module.exports = router;

@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var bcrypt = require('bcrypt');
 var jsonwebtoken = require("jsonwebtoken");
 const config = require('../configs/config');
+var crypto = require('crypto');
 
 var userSchema = new mongoose.Schema({
     username: {
@@ -16,19 +17,30 @@ var userSchema = new mongoose.Schema({
     status: {
         type: Boolean,
         default: true
-    }
+    },
+    resetPasswordToken: String,
+    resetPasswordExp: String
 }, { timestamps: true })
 
 userSchema.pre('save', function () {
     this.password = bcrypt.hashSync(this.password, 10);
 })
 
+
+
 userSchema.methods.getJWT = function () {
     var token = jsonwebtoken.sign({ id: this._id }, config.SECRET_KEY, {
         expiresIn: config.EXPIRE_JWT
     });
     return token;
-}
+};
+
+userSchema.methods.genTokenResetPassword = function () {
+    let token = crypto.randomBytes(30).toString('hex');
+    this.resetPasswordToken = token
+    this.resetPasswordExp = Date.now() + 10 * 60 * 1000;
+    return token;
+};
 
 userSchema.statics.GetCre = async function (username, password) {
     if (!username || !password) {
