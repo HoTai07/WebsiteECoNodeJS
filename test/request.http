@@ -15,7 +15,7 @@ Post http://localhost:3000/api/v1/vzconn/auth/login
 Content-Type: application/json
 
 {
-    "username": "truongtran05",
+    "username": "truongtran01",
     "password": "Truong@123"
     
 }
@@ -42,4 +42,12 @@ Content-Type: application/json
 
 {
     "password": "Truong@321"
+}
+
+###
+POST http://localhost:3000/api/v1/vzconn/auth/ChangePassword
+Content-Type: application/json
+
+{
+    "password": "Truong@123"
 }
