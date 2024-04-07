@@ -9,6 +9,7 @@ var productSchema = new mongoose.Schema({
     name: String,
     image: String,
     title: String,
+    price: Number,
     Brandid: {  // Tham chiếu đến BrandSchema thông qua Brandid
         type: mongoose.Schema.Types.ObjectId,
         ref: 'brand'
