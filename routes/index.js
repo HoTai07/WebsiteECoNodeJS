@@ -9,4 +9,5 @@ router.use('/user',require('./users'));
 router.use('/position',require('./positions'));
 router.use('/employee',require('./employees'));
 router.use('/auth',require('./auth'));
+router.use('/order',require('./order'));
 module.exports = router;

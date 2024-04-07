@@ -5,8 +5,23 @@ var PositionModel = require('../model/position')
 var UserModel = require('../model/user')
 var ResHelper = require('../helper/ResponseHelper');
 const { query } = require('express');
+var checkLogin = require('../middlewares/checklogin')
+var checkAuthorize = require('../middlewares/checkauthorize');
 
-router.get('/', async function (req, res, next) {
+
+router.get('/profile', checkLogin, checkAuthorize("admin"), async function (req, res, next) {
+  try {
+    // Tìm tất cả 
+    const undeleted = await EmployeeModel.findOne({ UserId: req.user._id });
+    res.send(undeleted);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Lỗi khi truy xuất thất bại');
+  }
+});
+
+
+router.get('/', checkLogin, checkAuthorize("admin"), async function (req, res, next) {
     try {
       // Tìm tất cả 
       const undeleted = await EmployeeModel.find({ isDeleted: false });
@@ -28,7 +43,7 @@ router.get('/', async function (req, res, next) {
     return result;
   }
 
-router.post('/', async function (req, res, next) {
+router.post('/', checkLogin, checkAuthorize("admin"), async function (req, res, next) {
     try {
         const position = await PositionModel.findOne({ Positionid : req.body.positionid })
         if (!position) {
