@@ -129,4 +129,16 @@ router.post('/', checkLogin, checkAuthorize("admin"), async function (req, res, 
     }
   });
 
+  router.put('/:id', checkLogin, checkAuthorize("admin"), async function (req, res, next) {
+    try {
+      let product = await productModel.findByIdAndUpdate
+        (req.params.id, req.body, {
+          new: true
+        }).exec()
+      ResHelper.RenderRes(res, true, product);
+    } catch (error) {
+      ResHelper.RenderRes(res, false, error)
+    }
+  });
+
 module.exports = router;
