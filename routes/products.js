@@ -5,6 +5,8 @@ var BrandModel = require('../model/brand')
 var TypeModel = require('../model/type')
 var ResHelper = require('../helper/ResponseHelper');
 const { query } = require('express');
+var checkLogin = require('../middlewares/checklogin')
+var checkAuthorize = require('../middlewares/checkauthorize');
 
 
 //Lấy tất cả
@@ -79,7 +81,7 @@ router.get('/search', async function (req, res, next) {
   }
 
 //Create new product
-router.post('/', async function (req, res, next) {
+router.post('/', checkLogin, checkAuthorize("admin"), async function (req, res, next) {
     try {
       // Kiểm tra xem Brand có tồn tại không
       const brand = await BrandModel.findOne({ Brandid: req.body.brandid });
@@ -91,16 +93,49 @@ router.post('/', async function (req, res, next) {
         return res.status(404).json({ message: 'Type not found' });
     }
 
+      // Lấy ngày tháng hiện tại
+      const currentDate = new Date();
+
+      // Định dạng ngày tháng và thời gian theo DMYHIMS
+      const formattedDateTime = `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
+
       var newproduct = new productModel({
-        productid: GenID(5),
+        productid: formattedDateTime + GenID(5),
         name: req.body.name,
         image: req.body.image,
         title: req.body.title,
         Brandid: brand._id,
+        price: req.body.price,
         Typeid: type._id
       })
       await newproduct.save();
       ResHelper.RenderRes(res, true, newproduct)
+    } catch (error) {
+      ResHelper.RenderRes(res, false, error)
+    }
+  });
+
+  router.delete('/:id', checkLogin, checkAuthorize("admin"), async function (req, res, next) {
+    try {
+      let product = await productModel.findByIdAndUpdate
+        (req.params.id, {
+          isDeleted: true
+        }, {
+          new: true
+        }).exec()
+      ResHelper.RenderRes(res, true, product);
+    } catch (error) {
+      ResHelper.RenderRes(res, false, error)
+    }
+  });
+
+  router.put('/:id', checkLogin, checkAuthorize("admin"), async function (req, res, next) {
+    try {
+      let product = await productModel.findByIdAndUpdate
+        (req.params.id, req.body, {
+          new: true
+        }).exec()
+      ResHelper.RenderRes(res, true, product);
     } catch (error) {
       ResHelper.RenderRes(res, false, error)
     }

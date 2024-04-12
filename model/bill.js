@@ -6,11 +6,6 @@ var BillSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    name: String,
-    employeeId:{
-        type: mongoose.Schema.ObjectId,
-        ref: "employee"
-    },
     customerid:{
         type: mongoose.Schema.ObjectId,
         ref: "customer"
