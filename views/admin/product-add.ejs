@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-fba26eda6a3fd6b4d0ce0def1e2ba1d7.css?vsn=d">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-light.css">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="bg-blue-600 py-4 px-6 h-full w-64 fixed top-0 left-0 bottom-0 overflow-y-auto">
+        <div class="flex items-center">
+            <img class="-ml-8" src="/src/img/logo.png" alt="">
+            <h1 class="text-white -ml-6 text-xl font-semibold">VZ Store</h1>
+        </div>
+        <ul class="mt-2 text-white -ml-5">
+            <li class="mb-4">
+                <div class="flex items-center rounded hover:bg-blue-700 px-6">
+                    <i class="fa-solid fa-house"></i>
+                    <a href="#" class="block py-2 text-xl px-4 ">Trang chủ</a>
+                </div>
+            </li>
+            <li class="mb-4">
+                <div class="flex items-center rounded hover:bg-blue-700 px-6">
+                    <i class="fa-solid fa-user"></i>
+                    <a href="#" class="block py-2 text-xl px-4 ">Tài khoản</a>
+                </div>
+            </li>
+            <li class="mb-4">
+                <div class="flex items-center rounded hover:bg-blue-700 px-6">
+                    <i class="fa-regular fa-bars-staggered"></i>
+                    <a href="#" class="block py-2 text-xl px-4 ">Sản phẩm</a>
+                </div>
+            </li>
+            <li class="mb-4">
+                <div class="flex items-center rounded hover:bg-blue-700 px-6">
+                    <i class="fa-solid fa-right-from-bracket rotate-180"></i>
+                    <a href="#" class="block py-2 text-xl px-4 ">Đăng xuất</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Content -->
+    <div class="ml-64 p-8">
+        <div class="grid grid-cols-2 gap-14">
+            <!-- Product List -->
+            <div class="bg-white p-6 rounded shadow-md">
+                <div class="container mx-auto p-8">
+                    <h2 class="text-2xl font-semibold mb-4">Thêm sản phẩm mới</h2>
+                    <form>
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 font-bold mb-2">Tên sản phẩm</label>
+                            <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <div class="mb-4">
+                            <label for="image" class="block text-gray-700 font-bold mb-2">Đường dẫn hình ảnh</label>
+                            <input type="text" id="image" name="image" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <div class="mb-4">
+                            <label for="price" class="block text-gray-700 font-bold mb-2">Giá sản phẩm</label>
+                            <input type="text" id="price" name="price" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <div class="mb-4">
+                            <label for="price" class="block text-gray-700 font-bold mb-2">Thông tin sản phẩm</label>
+                            <textarea id="price" name="price" class="shadow appearance-none border rounded w-full py-24 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                        </div>                        
+                        <div class="flex items-center justify-between">
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10 rounded focus:outline-none focus:shadow-outline">Thêm sản phẩm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

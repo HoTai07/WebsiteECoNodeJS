@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-fba26eda6a3fd6b4d0ce0def1e2ba1d7.css?vsn=d">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-light.css">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    
+        *
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+    
+        html 
+        {
+            scroll-behavior: smooth;
+        }
+    
+        li:hover #hover-content 
+        {
+            display: block;
+        }
+    
+        #hover-content 
+        {
+            top: 100%;
+            z-index: 10; 
+        }
+    
+        #hover-content a:hover
+        {
+            color: rgb(43, 42, 42);
+        }
+    
+        .product:hover,
+        .home:hover
+        {
+            color: rgb(185, 185, 185);
+        }
+    
+        #hover-content a
+        {
+            margin: 0 10px 0 10px;
+        }
+    
+        .account
+        {
+            cursor: pointer;
+        }
+    
+        .item
+        {
+            cursor: pointer;
+        }
+    
+        .banner 
+        {
+            margin-top: -50px;
+        }
+    
+        #menuToggle
+        {
+            cursor: pointer;
+        }
+        .menu-items 
+        {
+            list-style-type: none;
+            padding: 0;
+        }
+    
+        .menu-items li 
+        {
+            color: #333;
+            margin-bottom: 10px;
+            white-space: nowrap; 
+        }
+    
+        .menu-items li:hover 
+        {
+            cursor: pointer;
+            color: #777;
+        }
+    
+        .dropdown-menu 
+        {
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 30px;
+            top: 100%; 
+            left: 0;
+        }
+    
+        .mini
+        {
+            background: rgb(191,191,224);
+            background: linear-gradient(90deg, rgba(191,191,224,1) 19%, rgba(0,212,255,1) 64%);
+        }
+    
+    
+    </style>
+</head>
+<body>
+    <header class="header sticky top-0 z-50">
+        <!-- Top header -->
+        <div class="top-header relative bg-gray-100">
+            <div class="container xl:mx-auto">
+                <div class="flex justify-between">
+                    <div class="welcome flex">
+                        <li class="list-none mr-4 mb-4 mt-4 text-gray-400">Welcome to our shop</li>
+                        <li class="list-none mr-4 mb-4 mt-4 text-gray-400"><i class="text-orange-500 fa-duotone fa-phone mr-2"></i>Call us: 0395xxxxxxxx</li>
+                    </div>
+                    <div class="flex flex-row-reverse">
+                        <li class="account list-none mr-4 mb-4 mt-4 text-gray-400 relative transition duration-300">My Account <i class="fa-solid fa-caret-down"></i>
+                            <div class="absolute top-full right-0 hidden bg-white border border-gray-200 p-4 shadow-md" id="hover-content">
+                                <div class="flex flex-col">
+                                    <a href="">Login</a>
+                                    <a href="">Logout</a>
+                                </div>
+                            </div>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bottom header -->
+        <div class="bottom-header bg-white">
+            <div class="container xl:mx-auto">
+                <div class="flex justify-between">
+                    <div class="flex flex-row">
+                        <img class="" src="/src/img/logo.png" alt="">
+                    </div>
+                    <div class="flex flex-row-reverse">
+                        <li class="item list-none mr-5 mb-9 mt-10 text-xl text-gray-700"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></li>
+                        <li class="item list-none mr-5 mb-9 mt-10 text-xl text-gray-700 shadow-md rounded-xl"><input class="border border-none focus:outline-none rounded-xl pl-3 active" type="text" placeholder="Tìm kiếm...."></li>
+                        <a class="item product list-none mr-5 mb-9 mt-10 text-xl text-gray-700" href="">Liên hệ</a>
+                        <a class="item product list-none mr-5 mb-9 mt-10 text-xl text-gray-700" href="">Sản phẩm</a>
+                        <a class="item home list-none mr-5 mb-9 mt-10 text-xl text-gray-700" href="">Trang chủ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="flex justify-center">
+        <div id="payment-success" class="text-green-600 font-semibold text-5xl mt-48">
+            Đã thanh toán thành công
+        </div>
+    </section>
+    <section class="flex justify-center mt-8">
+        <a href="/" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Chuyển về trang chủ</a>
+    </section>
+    <!-- footer -->
+    <footer class="bg-slate-100 mt-80 p-12">
+        <div class="container mx-auto">
+            <div class="flex items-center justify-between">
+                <p class="text-xl text-gray-500">Ngôn ngữ phát triển ứng dụng mới</p>
+                <ul class="flex">
+                    <li class="mr-6"><a href="#" class="text-xl text-gray-500">Home</a></li>
+                    <li class="mr-6"><a href="#" class="text-xl text-gray-500">About</a></li>
+                    <li><a href="#" class="text-xl text-gray-500">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
