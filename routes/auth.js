@@ -15,6 +15,7 @@ var sendmail = require('../helper/sendMail');
 
 
 router.post('/login', async function (req, res, next) {
+  let userLogin;
   var result = await userModel.GetCre(req.body.username, req.body.password);
   if(result.role == 'user')
   {
@@ -25,6 +26,7 @@ router.post('/login', async function (req, res, next) {
   {
     var employeeInfomationDetail = await employeeModel.findOne({ UserId : result._id })
     console.log(employeeInfomationDetail);
+    
   }
 
   if (result.error) {
@@ -64,6 +66,7 @@ router.post('/register', userValidator.checkChain(), async function (req, res, n
     ResHelper.RenderRes(res, false, result.errors);
     return;
   }
+  console.log(req.body);
   try {
     var newUser = new userModel({
       username: req.body.username,
@@ -99,9 +102,15 @@ router.post('/register', userValidator.checkChain(), async function (req, res, n
     //   await newEmployee.save();
     // }
     
+    // Lấy ngày tháng hiện tại
+    const currentDate = new Date();
+
+    // Định dạng ngày tháng và thời gian theo DMYHIMS
+    const formattedDateTime = `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
+
     var newCustomer = new customerModel({
-      customerid: GenID(10),
-      name: req.body.name,
+      customerid: formattedDateTime+ GenID(10),
+      name: req.body.fullname,
       UserId: userid._id,
       phonenum: req.body.phonenumber,
       Email: req.body.email
