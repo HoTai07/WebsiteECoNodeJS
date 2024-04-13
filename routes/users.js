@@ -23,7 +23,20 @@ router.get('/profile', checkLogin, checkAuthorize("user"), async function (req, 
 // });
 router.get('/:id', async function (req, res, next) {
   let username = await userModel.findOne({ _id: req.params.id });
-  ResHelper.RenderRes(res, true, username.username)
+  if(username.role == 'user')
+  {
+    var userInfomationDetail = await customerModel.findOne({ UserId : username._id })
+    console.log(userInfomationDetail);
+    ResHelper.RenderRes(res, true, userInfomationDetail.name)
+  }
+  else if(username.role == 'admin')
+  {
+    var employeeInfomationDetail = await employeeModel.findOne({ UserId : username._id })
+    console.log(employeeInfomationDetail);
+    ResHelper.RenderRes(res, true, employeeInfomationDetail.name)
+    
+  }
+  
 });
 
 module.exports = router;
