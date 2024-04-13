@@ -120,11 +120,24 @@
                         <li class="list-none mr-4 mb-4 mt-4 text-gray-400"><i class="text-orange-500 fa-duotone fa-phone mr-2"></i>Call us: 0395xxxxxxxx</li>
                     </div>
                     <div class="flex flex-row-reverse">
-                        <li class="account list-none mr-4 mb-4 mt-4 text-gray-400 relative transition duration-300">My Account <i class="fa-solid fa-caret-down"></i>
+                        <li class="account list-none mr-4 mb-4 mt-4 text-gray-400 relative transition duration-300">
+                            <% if(Name) {%>
+                                Xin chào <%= Name.name %>
+                            <%} else{%> 
+                                My Account    
+                            <%}%>
+                            <i class="fa-solid fa-caret-down"></i>
                             <div class="absolute top-full right-0 hidden bg-white border border-gray-200 p-4 shadow-md" id="hover-content">
                                 <div class="flex flex-col">
-                                    <a href="">Login</a>
-                                    <a href="">Logout</a>
+                                    <% if (user) { %>
+                                        <% if (user.data.role == "admin") {%>
+                                             <a id="AdminButton" href="">Manage</a>
+                                         <%}%>
+                                             <a id="logoutButton" href="">Logout</a>
+                                     <% } else { %>
+                                         <a id="LoginButton" href="/login">Login</a>
+                                         <a id="RegisterButton" href="/register">Register</a>
+                                     <% } %>
                                 </div>
                             </div>
                         </li>
@@ -144,7 +157,7 @@
                         <li class="item list-none mr-5 mb-9 mt-10 text-xl text-gray-700 shadow-md rounded-xl"><input class="border border-none focus:outline-none rounded-xl pl-3 active" type="text" placeholder="Tìm kiếm...."></li>
                         <a class="item product list-none mr-5 mb-9 mt-10 text-xl text-gray-700" href="">Liên hệ</a>
                         <a class="item product list-none mr-5 mb-9 mt-10 text-xl text-gray-700" href="">Sản phẩm</a>
-                        <a class="item home list-none mr-5 mb-9 mt-10 text-xl text-gray-700" href="">Trang chủ</a>
+                        <a class="item home list-none mr-5 mb-9 mt-10 text-xl text-gray-700" href="/">Trang chủ</a>
                     </div>
                 </div>
             </div>
@@ -154,16 +167,24 @@
     <!--Product info-->
     <section>
         <div class="container mx-auto px-4 py-8">
+            <% if (product){%>
             <div class="flex flex-col lg:flex-row">
                 <div class="lg:w-1/2 border-r border-gray-300 pr-8">
-                    <img src="/src/img/razer-naga-v2-pro.png" class="w-full h-auto lg:h-full object-cover">
+                    <img src="<%= product.data.image %>" class="w-full h-auto lg:h-full object-cover">
                 </div>
                 <div class="lg:w-1/2 lg:pl-8 mt-4 lg:mt-0">
-                    <h2 class="text-5xl font-bold mb-9 mt-20">Razer naga v2 pro</h2>
-                    <p class="text-3xl font-bold mb-10 text-red-600">4.790.000đ</p>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded text-xl">Thanh Toán</button>
+                    <h2 class="text-5xl font-bold mb-9 mt-20"><%= product.data.name %></h2>
+                    <p class="text-3xl font-bold mb-10 text-red-600"><%= product.data.price %></p>
+                    <% if (user) { %>
+                        <% if (user.data.role == "user") {%>
+                            <button id="buttonOrder" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded text-xl">Thanh Toán</button>
+                        <%}%>
+                    <%}%>
                 </div>
             </div>
+            <%} else{%>
+                <span>Sản phẩm hiện không tồn tại, vui lòng trở về <a href="/">Trang chủ</a></span>
+            <%}%>
         </div>
     </section>
 
@@ -173,7 +194,7 @@
             <div class="flex items-center justify-between">
                 <p class="text-xl text-gray-500">Ngôn ngữ phát triển ứng dụng mới</p>
                 <ul class="flex">
-                    <li class="mr-6"><a href="#" class="text-xl text-gray-500">Home</a></li>
+                    <li class="mr-6"><a href="/" class="text-xl text-gray-500">Home</a></li>
                     <li class="mr-6"><a href="#" class="text-xl text-gray-500">About</a></li>
                     <li><a href="#" class="text-xl text-gray-500">Contact</a></li>
                 </ul>
@@ -181,4 +202,69 @@
         </div>
     </footer>
 </body>
+<script>
+    document.getElementById('logoutButton').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        
+        console.log("Logout Successfully");
+        fetch('/api/v1/vzconn/auth/logout', {
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); 
+            if (data.success) {
+                window.location.href = '/';
+            } 
+        })
+        .catch(error => {
+            console.error('Error:', error); 
+        });
+    });
+
+    document.getElementById('buttonOrder').addEventListener('click', function(event)
+    {
+        event.preventDefault(); 
+        fetch('/api/v1/vzconn/order/createNew', {
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); 
+            next();
+        })
+        .catch(error => {
+            console.error('Error:', error); 
+        });
+
+        const url = window.location.href;
+        const pathSegments = url.split('/');
+        const lastSegment = pathSegments[pathSegments.length - 1];
+        const productId = decodeURIComponent(lastSegment);
+        console.log(productId);
+        const data = {
+            IdProduct: productId
+        };
+
+        fetch('/api/v1/vzconn/order/intobill', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+              }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); 
+            if (data.success) {
+                window.location.href = '/ordersuccessfully';
+            } 
+        })
+        .catch(error => {
+            console.error('Error:', error); 
+        });
+
+
+    });
+</script>
 </html>

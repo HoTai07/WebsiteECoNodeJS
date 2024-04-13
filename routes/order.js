@@ -55,8 +55,8 @@ router.post('/intobill', checkLogin, checkAuthorize("user"), async function (req
         if(billIs)
         {
             //Tìm sản phẩm với ID tương tự
-            const checkproduct = await productModel.findOne({ productid: req.body.IdProduct, isDeleted: false });
-            
+            var checkproduct = await productModel.findOne({ productid: req.body.IdProduct, isDeleted: false });
+            console.log(req.body.IdProduct);
             try{
               if(checkproduct)
               {
@@ -73,6 +73,20 @@ router.post('/intobill', checkLogin, checkAuthorize("user"), async function (req
                 //Cập nhật tổng bill
                 billIs.TotalBill = 1*productPrice;
                 await billIs.save();
+
+                const updateSLT = checkproduct.SLT - 1
+                console.log(updateSLT);
+                if(updateSLT == 0)
+                {
+                  checkproduct.SLT = updateSLT;
+                  checkproduct.isDeleted = true;
+                }
+                else
+                {
+                  checkproduct.SLT = updateSLT;
+                }
+                await checkproduct.save();
+                
                 ResHelper.RenderRes(res, true, "Tạo hóa đơn thành công!")
               }
               else
