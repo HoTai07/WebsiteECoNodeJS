@@ -21,6 +21,9 @@ router.get('/profile', checkLogin, checkAuthorize("user"), async function (req, 
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
 // });
-
+router.get('/:id', async function (req, res, next) {
+  let username = await userModel.findOne({ _id: req.params.id });
+  ResHelper.RenderRes(res, true, username.username)
+});
 
 module.exports = router;
