@@ -121,16 +121,23 @@
                         <li class="mt-4 mb-4 mr-4 text-gray-400 list-none"><i class="mr-2 text-orange-500 fa-duotone fa-phone"></i>Call us: 0395xxxxxxxx</li>
                     </div>
                     <div class="flex flex-row-reverse">
-                        <li class="relative mt-4 mb-4 mr-4 text-gray-400 list-none transition duration-300 account">My Account <i class="fa-solid fa-caret-down"></i>
+                        <li class="relative mt-4 mb-4 mr-4 text-gray-400 list-none transition duration-300 account">
+                            <% if(Name) {%>
+                                Xin chào <%= Name.name %>
+                            <%} else{%> 
+                                My Account    
+                            <%}%>
+                            <i class="fa-solid fa-caret-down"></i>
                             <div class="absolute right-0 hidden p-4 bg-white border border-gray-200 shadow-md top-full" id="hover-content">
-                                <div class="flex flex-col">
-                                    
-                                    <% if (user && user !== "null") { %>
-                                        <span>Xin chào <%= Name %></span>
-                                        <a id="logoutButton" href="">Logout</a>
+                                <div class="flex flex-col">  
+                                    <% if (user) { %>
+                                       <% if (user.data.role == "admin") {%>
+                                            <a id="AdminButton" href="">Manage</a>
+                                        <%}%>
+                                            <a id="logoutButton" href="">Logout</a>
                                     <% } else { %>
                                         <a id="LoginButton" href="/login">Login</a>
-                                        <a id="RegisterButton" href="/register">Đăng ký</a>
+                                        <a id="RegisterButton" href="/register">Register</a>
                                     <% } %>
                                     
                                 </div>
@@ -146,7 +153,7 @@
             <div class="container xl:mx-auto">
                 <div class="flex justify-between">
                     <div class="flex flex-row">
-                        <img class="" src="/public/img/logo.png" alt="">
+                        <img class="" src="../../public/images/vzLogo.png" width="50px" alt="">
                     </div>
                     <div class="flex flex-row-reverse">
                         <li class="mt-10 mr-5 text-xl text-gray-700 list-none item mb-9"><i class="fa-regular fa-cart-shopping"></i></li>
@@ -169,7 +176,7 @@
                     <button class="px-5 py-4 mt-5 text-xl font-bold text-white transition duration-300 bg-orange-500 rounded-md hover:bg-orange-700">Khám phá ngay</button>
                 </div>
                 <div class="w-1/2">
-                    <img class="w-full h-auto transition-transform duration-500 transform hover:scale-110" src="/src/img/steelseries-banner.png" alt="">
+                    <img class="w-full h-auto transition-transform duration-500 transform hover:scale-110" src="https://product.hstatic.net/200000722513/product/81ilk0wep_l._ac__0f1c3bd8a989440eaee1fa294288d6ef_1024x1024.jpg" alt="">
                 </div>
             </div>
         </div>
@@ -180,13 +187,13 @@
             <div class="flex justify-center">
                 <div class="flex-1 max-w-xl mr-8 overflow-hidden rounded-lg shadow-lg">
                     <div class="flex items-center p-8 transition-transform duration-500 transform mini hover:scale-110">
-                        <img class="w-48 h-48" src="/src/img/g-pro.png" alt="">
+                        <img class="w-48 h-48" src="https://resource.logitech.com/content/dam/gaming/en/products/pro-wireless-gaming-mouse/pro-wireless-carbon-gallery-1.png" width="100%" alt="">
                         <strong class="ml-5 text-2xl ">LOGITECH G-PRO WIRELESS</strong>
                     </div>
                 </div>
                 <div class="flex-1 max-w-xl ml-8 overflow-hidden rounded-lg shadow-lg">
                     <div class="flex items-center p-8 transition-transform duration-500 transform mini hover:scale-110">
-                        <img class="w-48 h-48" src="/src/img/cyberboard.png" alt="">
+                        <img class="w-48 h-48" src="https://dangkeebs.com/cdn/shop/files/Paisleybase2.png?v=1710531636&width=1445" alt="">
                         <strong class="ml-5 text-2xl ">ANGRY MIAO CYBERBOARD R4</strong>
                     </div>
                 </div>
@@ -195,294 +202,47 @@
     </div>
     <!-- title -->
     <div class="flex items-center justify-center h-full">
-        <p class="mt-16 mb-10 text-5xl font-bold text-gray-600">SẢN PHẨM</p>
+        <p class="mt-16 mb-10 text-5xl font-bold text-gray-600">Bàn phím cơ</p>
     </div>
     <!-- product list -->
     <div class="flex flex-wrap gap-10 mb-20 ml-20">
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
+        <% if (product && product.data && product.data.length > 0) { %>
+            <% product.data.forEach(item => { %>
+                    <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
+                        <a href="/detail/<%= item.productid %>">
+                            <img class="w-full" src="<%= item.image %>" alt="">
+                            <div class="px-6 py-4">
+                                <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="/detail/<%= item.productid %>"><%= item.name %></a></div>
+                                <div class="text-2xl font-bold text-red-500"><%= item.price %> đ</div>
+                            </div>
+                        </a>
+                    </div>
+            <% }); %>
+        <% } else { %>
+            <p>No products available</p>
+        <% } %>
     </div>
     <!-- title -->
     <div class="flex items-center justify-center h-full">
-        <p class="mt-16 mb-10 text-5xl font-bold text-gray-600">SẢN PHẨM</p>
+        <p class="mt-16 mb-10 text-5xl font-bold text-gray-600">Chuột máy tính</p>
     </div>
     <!-- product list -->
     <div class="flex flex-wrap gap-10 mb-20 ml-20">
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
+        <% if (productCMT && productCMT.data && productCMT.data.length > 0) { %>
+            <% productCMT.data.forEach(item => { %>
+                <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
+                    <a href="/detail/<%= item._id %>">
+                        <img class="w-full" src="<%= item.image %>" alt="">
+                        <div class="px-6 py-4">
+                            <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="/detail/<%= item._id %>"><%= item.name %></a></div>
+                            <div class="text-2xl font-bold text-red-500"><%= item.price %> đ</div>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <!-- title -->
-    <div class="flex items-center justify-center h-full">
-        <p class="mt-16 mb-10 text-5xl font-bold text-gray-600">SẢN PHẨM</p>
-    </div>
-    <!-- product list -->
-    <div class="flex flex-wrap gap-10 mb-20 ml-20">
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
-        <div class="flex-shrink-0 w-1/4 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
-            <a href="">
-                <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                <div class="px-6 py-4">
-                    <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                    <div class="text-2xl font-bold text-red-500">4.790.000đ</div>
-                </div>
-            </a>
-        </div>
+            <% }); %>
+            <% } else { %>
+                <p>No products available</p>
+            <% } %>
     </div>
     <!-- footer -->
     <footer class="p-12 bg-slate-100 mt-36">
@@ -503,7 +263,7 @@
     document.getElementById('logoutButton').addEventListener('click', function(event) {
         event.preventDefault(); 
         
-        console.log("ImIronman");
+        console.log("Logout Successfully");
         fetch('/api/v1/vzconn/auth/logout', {
             method: 'POST',
         })

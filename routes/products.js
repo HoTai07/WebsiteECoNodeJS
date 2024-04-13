@@ -10,11 +10,37 @@ var checkAuthorize = require('../middlewares/checkauthorize');
 
 
 //Lấy tất cả
-  router.get('/', async function (req, res, next) {
+  router.get('/BPC', async function (req, res, next) {
+    try {
+      const type = await TypeModel.findOne({ Typeid: "BPC" });
+      //Tìm theo loại sản phẩm
+      // Tìm tất cả các sản phẩm không bị xóa
+      const undeletedBooks = await productModel.find({ isDeleted: false, Typeid: type._id  }).limit(8);
+      ResHelper.RenderRes(res, true, undeletedBooks)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Lỗi khi truy xuất thất bại');
+    }
+  });
+
+  router.get('/CMT', async function (req, res, next) {
+    try {
+      const type = await TypeModel.findOne({ Typeid: "CMT" });
+      //Tìm theo loại sản phẩm
+      // Tìm tất cả các sản phẩm không bị xóa
+      const undeletedBooks = await productModel.find({ isDeleted: false, Typeid: type._id  }).limit(8);
+      ResHelper.RenderRes(res, true, undeletedBooks)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Lỗi khi truy xuất thất bại');
+    }
+  });
+
+  router.get('/:id', async function (req, res, next) {
     try {
       // Tìm tất cả các sản phẩm không bị xóa
-      const undeletedBooks = await productModel.find({ isDeleted: false });
-      res.send(undeletedBooks);
+      const detailproduct = await productModel.findOne({ isDeleted: false, productid: req.params.id });
+      ResHelper.RenderRes(res, true, detailproduct)
     } catch (error) {
       console.error(error);
       res.status(500).send('Lỗi khi truy xuất thất bại');
@@ -104,6 +130,7 @@ router.post('/', checkLogin, checkAuthorize("admin"), async function (req, res, 
         name: req.body.name,
         image: req.body.image,
         title: req.body.title,
+        SLT: req.body.SLT,
         Brandid: brand._id,
         price: req.body.price,
         Typeid: type._id

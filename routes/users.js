@@ -5,6 +5,7 @@ var checkAuthorize = require('../middlewares/checkauthorize');
 var userModel = require('../model/user')
 var ResHelper = require('../helper/ResponseHelper');
 var customerModel = require('../model/customer');
+var employeeModel = require('../model/employee');
 
 router.get('/', checkLogin, checkAuthorize("user"), async function (req, res, next) {
   let users = await userModel.find({}).exec();
@@ -27,15 +28,26 @@ router.get('/:id', async function (req, res, next) {
   {
     var userInfomationDetail = await customerModel.findOne({ UserId : username._id })
     console.log(userInfomationDetail);
-    ResHelper.RenderRes(res, true, userInfomationDetail.name)
+    ResHelper.RenderRes(res, true, userInfomationDetail)
   }
   else if(username.role == 'admin')
   {
     var employeeInfomationDetail = await employeeModel.findOne({ UserId : username._id })
     console.log(employeeInfomationDetail);
-    ResHelper.RenderRes(res, true, employeeInfomationDetail.name)
+    ResHelper.RenderRes(res, true, employeeInfomationDetail)
     
   }
+  
+});
+
+
+router.get('/userRole/:id', async function (req, res, next) {
+  let username = await userModel.findOne({ _id: req.params.id });
+  
+    ResHelper.RenderRes(res, true, username)
+ 
+ 
+    
   
 });
 

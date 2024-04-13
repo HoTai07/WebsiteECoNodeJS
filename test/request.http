@@ -92,10 +92,26 @@ POST http://localhost:3000/api/v1/vzconn/product
 Content-Type: application/json
 
 {
-    "name": "Bàn phím XinMeng 67",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSer4qY7gOEJDRkMi9-SfM9QhEGLPfW7b6jjtqUQ-1mTw&s",
-    "title": "Bàn phím XingMeng 67 nhưng tăng giá hơn",
+    "name": "Bàn phím Sugar 65",
+    "image": "https://bizweb.dktcdn.net/100/438/322/products/z4589506891972-a2e366ca3e7b4783834c62aad399ebec-17b66ee9-cab6-44a3-83fb-dc22f23ceca6.jpg?v=1696392929720",
+    "title": "Bàn phím tương tự nhưng tăng giá hơn",
     "brandid": "XM",
+    "SLT":10,
+    "price": 1100000,
+    "typeid": "BPC"
+}
+
+###
+
+POST http://localhost:3000/api/v1/vzconn/product
+Content-Type: application/json
+
+{
+    "name": "Bàn phím XinMeng A66",
+    "image": "https://bizweb.dktcdn.net/thumb/1024x1024/100/436/596/products/5-1692543376602.png?v=1692543382313",
+    "title": "Bàn phím trung quốc",
+    "brandid": "XM",
+    "SLT":10,
     "price": 1100000,
     "typeid": "BPC"
 }
@@ -104,3 +120,23 @@ Content-Type: application/json
 DELETE http://localhost:3000/api/v1/vzconn/product/66125af5e01286fc10f21ee5
 
 
+###
+GET http://localhost:3000/api/v1/vzconn/user/6619f196c4132eaa9cdd97b1
+
+### THÊM LOẠI SẢN PHẨM ###
+POST http://localhost:3000/api/v1/vzconn/type
+Content-Type: application/json
+
+{
+    "id": "CMT",
+    "name": "Chuột máy tính"
+}
+
+### 
+POST http://localhost:3000/api/v1/vzconn/type
+Content-Type: application/json
+
+{
+    "id": "BPC",
+    "name": "Bàn phím cơ"
+}
