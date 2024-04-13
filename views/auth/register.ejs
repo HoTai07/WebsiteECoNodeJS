@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./output.css" rel="stylesheet">
+    <link href="../../dist/output.css" rel="stylesheet">
     <link rel="stylesheet" data-purpose="Layout StyleSheet" title="Web Awesome" href="/css/app-wa-fba26eda6a3fd6b4d0ce0def1e2ba1d7.css?vsn=d">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-thin.css">
@@ -12,32 +12,70 @@
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-light.css">
     <title>Document</title>
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen">
-    <div class="bg-white p-8 rounded-lg shadow-md w-96">
-        <h2 class="text-2xl font-bold mb-4">Đăng ký </h2>
-        <form>
+<body class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="p-8 bg-white rounded-lg shadow-md w-96">
+        <h2 class="mb-4 text-2xl font-bold">Đăng ký </h2>
+        <form id="registerForm">
             <div class="mb-4">
-                <label for="username" class="block text-gray-700 font-bold mb-2">Tài khoản</label>
-                <input type="text" id="username" name="username" class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Hãy nhập tài khoản">
+                <label for="username" class="block mb-2 font-bold text-gray-700">Tài khoản</label>
+                <input type="text" id="username" name="username" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Hãy nhập tài khoản">
             </div>
             <div class="mb-4">
-                <label for="username" class="block text-gray-700 font-bold mb-2">Email</label>
-                <input type="text" id="email" name="email" class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Hãy nhập email">
+                <label for="email" class="block mb-2 font-bold text-gray-700">Email</label>
+                <input type="text" id="email" name="email" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Hãy nhập email">
             </div>
             <div class="mb-4">
-                <label for="username" class="block text-gray-700 font-bold mb-2">Họ tên</label>
-                <input type="text" id="Fullname" name="Fullname" class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Hãy nhập Họ tên">
+                <label for="fullname" class="block mb-2 font-bold text-gray-700">Họ tên</label>
+                <input type="text" id="fullname" name="fullname" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Hãy nhập Họ tên">
             </div>
             <div class="mb-4">
-                <label for="username" class="block text-gray-700 font-bold mb-2">Số điện thoại</label>
-                <input type="text" id="username" name="username" class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Hãy nhập Số điện thoại">
+                <label for="phonenumber" class="block mb-2 font-bold text-gray-700">Số điện thoại</label>
+                <input type="text" id="phonenumber" name="phonenumber" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Hãy nhập Số điện thoại">
             </div>
             <div class="mb-6">
-                <label for="password" class="block text-gray-700 font-bold mb-2">Mật khẩu</label>
-                <input type="password" id="password" name="password" class="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Hãy nhập mật khẩu">
+                <label for="password" class="block mb-2 font-bold text-gray-700">Mật khẩu</label>
+                <input type="password" id="password" name="password" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" placeholder="Hãy nhập mật khẩu">
             </div>
-            <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:bg-blue-600">Đăng ký</button>
+            <button type="submit" class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded focus:outline-none focus:bg-blue-600">Đăng ký</button>
         </form>
     </div>
 </body>
+<script>
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Ngăn chặn hành vi mặc định của form
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const email = document.getElementById('email').value;
+        const fullname = document.getElementById('fullname').value;
+        const phonenumber = document.getElementById('phonenumber').value;
+        const data = {
+            email: email,
+            username: username,
+            password: password,
+            fullname: fullname,
+            phonenumber: phonenumber
+        };
+
+        console.log(data);
+        fetch('/api/v1/vzconn/auth/register', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+              }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); 
+            if (data.success) {
+                // Đăng nhập thành công, chuyển hướng sang trang login
+                window.location.href = '/login'; // Đường dẫn của trang Login
+            } 
+        })
+        .catch(error => {
+            console.error('Error:', error); // Log lỗi nếu có
+        });
+    });
+</script>
 </html>

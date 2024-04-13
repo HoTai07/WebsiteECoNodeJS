@@ -6,7 +6,7 @@ Content-Type: application/json
     "username": "truongtran05",
     "password": "Truong@123",
     "email": "trantruong@gmail.com",
-    "name": "Trần Nguyên Trường",
+    "fullname": "Trần Nguyên Trường",
     "phonenumber": "0359375875"
 }
 

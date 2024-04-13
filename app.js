@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+const cors = require('cors');
 
 
 var app = express();
@@ -14,12 +15,36 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/v1/vzconn/',  require('./routes/index'));
+
+
+// //web
+// app.use('/',cors(), require('./routes/webApi/webIndex'));
+//api
+app.use('/api/v1/vzconn/', require('./routes/index'));
 // app.use('/users', usersRouter);
+
+
+app.get('/register', cors(), (req, res) => {
+  res.render('auth/register');
+});
+
+app.get('/login', cors(), (req, res) => {
+  res.render('auth/login');
+});
+
+app.get('/', cors(), (req, res) => {
+  let userLogin;
+  if (req.cookies.token) {
+    userLogin = req.cookies.token;
+    console.log("Đã Login: "+req.cookies.token);
+  }
+  res.render('home/home-page',{user: userLogin});
+
+});
 
 //Database config
 mongoose.connect('mongodb://localhost:27017/TeamVZ').then(function () {
