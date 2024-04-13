@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+app.use("/css", express.static("dist"));
 
 // //web
 // app.use('/',cors(), require('./routes/webApi/webIndex'));
