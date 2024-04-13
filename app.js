@@ -5,7 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 const cors = require('cors');
-
+const jwt = require('jsonwebtoken');
+const config = require('./configs/config');
+const axios = require('axios');
 
 var app = express();
 
@@ -38,11 +40,39 @@ app.get('/login', cors(), (req, res) => {
 
 app.get('/', cors(), (req, res) => {
   let userLogin;
-  if (req.cookies.token) {
-    userLogin = req.cookies.token;
-    console.log("Đã Login: "+req.cookies.token);
+  if (req.cookies.token !== "null") {
+    const token = req.cookies.token;
+    const secretKey = config.SECRET_KEY; // Thay thế YOUR_SECRET_KEY_HERE bằng khóa bí mật của bạn
+
+    // Giải mã chuỗi JWT
+    jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) {
+        console.error('Lỗi khi giải mã JWT:', err);
+        userLogin = null; // Nếu có lỗi, gán userLogin thành null
+      } else {
+        // Nếu giải mã thành công, gán dữ liệu người dùng vào biến userLogin
+        userLogin = decoded.id;
+        console.log("Đã Login: " + decoded.id);
+      }
+    });
+    axios.get('http://localhost:3000/api/v1/vzconn/user/'+ userLogin)
+    .then(response => {
+      const data = response.data;
+      console.log(data);
+      res.render('home/home-page', { user: userLogin, Name: data.data });
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      res.render('error');
+    });
   }
-  res.render('home/home-page',{user: userLogin});
+  else
+  {
+    userLogin = null;
+    console.log("Chưa Login: "+userLogin);
+    res.render('home/home-page',{ user: userLogin});
+  }
+ 
 
 });
 
