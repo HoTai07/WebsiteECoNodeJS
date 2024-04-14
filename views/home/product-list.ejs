@@ -110,21 +110,34 @@
     </style>
 </head>
 <body>
-    <header class="header sticky top-0 z-50">
+    <header class="sticky top-0 z-50 header">
         <!-- Top header -->
-        <div class="top-header relative bg-gray-100">
+        <div class="relative bg-gray-100 top-header">
             <div class="container xl:mx-auto">
                 <div class="flex justify-between">
-                    <div class="welcome flex">
-                        <li class="list-none mr-4 mb-4 mt-4 text-gray-400">Welcome to our shop</li>
-                        <li class="list-none mr-4 mb-4 mt-4 text-gray-400"><i class="text-orange-500 fa-duotone fa-phone mr-2"></i>Call us: 0395xxxxxxxx</li>
+                    <div class="flex welcome">
+                        <li class="mt-4 mb-4 mr-4 text-gray-400 list-none">Welcome to our shop</li>
+                        <li class="mt-4 mb-4 mr-4 text-gray-400 list-none"><i class="mr-2 text-orange-500 fa-duotone fa-phone"></i>Call us: 0395xxxxxxxx</li>
                     </div>
                     <div class="flex flex-row-reverse">
-                        <li class="account list-none mr-4 mb-4 mt-4 text-gray-400 relative transition duration-300">My Account <i class="fa-solid fa-caret-down"></i>
-                            <div class="absolute top-full right-0 hidden bg-white border border-gray-200 p-4 shadow-md" id="hover-content">
+                        <li class="relative mt-4 mb-4 mr-4 text-gray-400 list-none transition duration-300 account">
+                            <% if(Name) {%>
+                                Xin chào <%= Name.name %>
+                            <%} else{%> 
+                                My Account    
+                            <%}%>
+                            <i class="fa-solid fa-caret-down"></i>
+                            <div class="absolute right-0 hidden p-4 bg-white border border-gray-200 shadow-md top-full" id="hover-content">
                                 <div class="flex flex-col">
-                                    <a href="">Login</a>
-                                    <a href="">Logout</a>
+                                    <% if (user) { %>
+                                        <% if (user.data.role == "admin") {%>
+                                             <a id="AdminButton" href="/admin/manage">Manage</a>
+                                         <%}%>
+                                             <a id="logoutButton" href="">Logout</a>
+                                     <% } else { %>
+                                         <a id="LoginButton" href="/login">Login</a>
+                                         <a id="RegisterButton" href="/register">Register</a>
+                                     <% } %>
                                 </div>
                             </div>
                         </li>
@@ -133,136 +146,66 @@
             </div>
         </div>
         <!-- Bottom header -->
-        <div class="bottom-header bg-white">
+        <div class="bg-white bottom-header">
             <div class="container xl:mx-auto">
                 <div class="flex justify-between">
                     <div class="flex flex-row">
                         <img class="" src="/src/img/logo.png" alt="">
                     </div>
                     <div class="flex flex-row-reverse">
-                        <li class="item list-none mr-5 mb-9 mt-10 text-xl text-gray-700"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></li>
-                        <li class="item list-none mr-5 mb-9 mt-10 text-xl text-gray-700 shadow-md rounded-xl"><input class="border border-none focus:outline-none rounded-xl pl-3 active" type="text" placeholder="Tìm kiếm...."></li>
-                        <a class="item product list-none mr-5 mb-9 mt-10 text-xl text-gray-700" href="">Liên hệ</a>
-                        <a class="item product list-none mr-5 mb-9 mt-10 text-xl text-gray-700" href="">Sản phẩm</a>
-                        <a class="item home list-none mr-5 mb-9 mt-10 text-xl text-gray-700" href="">Trang chủ</a>
+                        <li class="mt-10 mr-5 text-xl text-gray-700 list-none item mb-9"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></li>
+                        <li class="mt-10 mr-5 text-xl text-gray-700 list-none shadow-md item mb-9 rounded-xl"><input class="pl-3 border border-none focus:outline-none rounded-xl active" type="text" placeholder="Tìm kiếm...."></li>
+                        <a class="mt-10 mr-5 text-xl text-gray-700 list-none item product mb-9" href="/contact">Liên hệ</a>
+                        <a class="mt-10 mr-5 text-xl text-gray-700 list-none item product mb-9" href="/productlist">Sản phẩm</a>
+                        <a class="mt-10 mr-5 text-xl text-gray-700 list-none item home mb-9" href="/">Trang chủ</a>
                     </div>
                 </div>
             </div>
         </div>
     </header>
     <div class="container flex ml-36">
-        <div class="container mx-auto p-8 flex">
+        <div class="container flex p-8 mx-auto">
             <!-- Left Sidebar -->
             <div class="w-1/4 p-5">
-                <div class="rounded-lg shadow-md mr-6 p-5">
-                    <h2 class="text-xl font-semibold mb-4">Danh mục</h2>
+                <div class="p-5 mr-6 rounded-lg shadow-md">
+                    <h2 class="mb-4 text-xl font-semibold">Danh mục</h2>
                     <ul>
-                        <li class="mb-2"><a href="#" class="text-black hover:text-gray-400">Bàn phím</a></li>
-                        <li class="mb-2"><a href="#" class="text-black hover:text-gray-400">Chuột máy tính</a></li>
-                        <li class="mb-2"><a href="#" class="text-black hover:text-gray-400">Tai nghe</a></li>
+                        <% if( type && type.length > 0 ) {%>
+                            <% type.forEach(item => { %>
+                                <li class="mb-2"><a href="/productlist/<%= item.Typeid %>" class="text-black hover:text-gray-400"><%= item.name %></a></li>
+                            <% }); %>
+                        <%} %>
+                        <!-- <li class="mb-2"><a href="#" class="text-black hover:text-gray-400">Chuột máy tính</a></li>
+                        <li class="mb-2"><a href="#" class="text-black hover:text-gray-400">Tai nghe</a></li> -->
                     </ul>
                 </div>
             </div>
             <!-- Right Content -->
             <div class="w-3/4">
-                <h2 class="text-2xl font-semibold mb-4 ml-20">Danh sách sản phẩm</h2>
-                <div class="grid grid-cols-4 gap-10 ml-20 mb-20">
-                    <div class="cursor-pointer max-w-xs rounded overflow-hidden shadow-lg flex-shrink-0 transition-transform hover:scale-105">
-                        <a href="">
-                            <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                                <div class="font-bold text-2xl text-red-500">4.790.000đ</div>
+                <h2 class="mb-4 ml-20 text-2xl font-semibold">Danh sách sản phẩm</h2>
+                <div class="grid grid-cols-4 gap-10 mb-20 ml-20">
+                    <% if(product && product.data && product.data.length > 0) {%>
+                        <% product.data.forEach(itemProduct => { %>
+                            <div class="flex-shrink-0 max-w-xs overflow-hidden transition-transform rounded shadow-lg cursor-pointer hover:scale-105">
+                                <a href="/detail/<%= itemProduct.productid %>">
+                                    <img class="w-full" src="<%= itemProduct.image %>" alt="">
+                                    <div class="px-6 py-4">
+                                        <div class="mb-2 text-xl font-bold"><a class="transition duration-200 hover:text-red-300" href="/detail/<%= itemProduct.productid %>"><%= itemProduct.name %></a></div>
+                                        <div class="text-2xl font-bold text-red-500"><%= itemProduct.price %>đ</div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
-                    <div class="cursor-pointer max-w-xs rounded overflow-hidden shadow-lg flex-shrink-0 transition-transform hover:scale-105">
-                        <a href="">
-                            <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                                <div class="font-bold text-2xl text-red-500">4.790.000đ</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cursor-pointer max-w-xs rounded overflow-hidden shadow-lg flex-shrink-0 transition-transform hover:scale-105">
-                        <a href="">
-                            <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                                <div class="font-bold text-2xl text-red-500">4.790.000đ</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cursor-pointer max-w-xs rounded overflow-hidden shadow-lg flex-shrink-0 transition-transform hover:scale-105">
-                        <a href="">
-                            <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                                <div class="font-bold text-2xl text-red-500">4.790.000đ</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cursor-pointer max-w-xs rounded overflow-hidden shadow-lg flex-shrink-0 transition-transform hover:scale-105">
-                        <a href="">
-                            <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                                <div class="font-bold text-2xl text-red-500">4.790.000đ</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cursor-pointer max-w-xs rounded overflow-hidden shadow-lg flex-shrink-0 transition-transform hover:scale-105">
-                        <a href="">
-                            <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                                <div class="font-bold text-2xl text-red-500">4.790.000đ</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cursor-pointer max-w-xs rounded overflow-hidden shadow-lg flex-shrink-0 transition-transform hover:scale-105">
-                        <a href="">
-                            <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                                <div class="font-bold text-2xl text-red-500">4.790.000đ</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cursor-pointer max-w-xs rounded overflow-hidden shadow-lg flex-shrink-0 transition-transform hover:scale-105">
-                        <a href="">
-                            <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                                <div class="font-bold text-2xl text-red-500">4.790.000đ</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cursor-pointer max-w-xs rounded overflow-hidden shadow-lg flex-shrink-0 transition-transform hover:scale-105">
-                        <a href="">
-                            <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                                <div class="font-bold text-2xl text-red-500">4.790.000đ</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="cursor-pointer max-w-xs rounded overflow-hidden shadow-lg flex-shrink-0 transition-transform hover:scale-105">
-                        <a href="">
-                            <img class="w-full" src="/src/img/razer-naga-v2-pro.png" alt="">
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2"><a class="transition duration-200 hover:text-red-300" href="">Razer naga v2</a></div>
-                                <div class="font-bold text-2xl text-red-500">4.790.000đ</div>
-                            </div>
-                        </a>
-                    </div>
+                        <%});%>
+                    <% } else { %>
+                        <p>No products available</p>
+                    <% } %>
+                    
                 </div>
             </div>
           </div>
     </div>
     <!-- footer -->
-    <footer class="bg-slate-100 mt-36 p-12">
+    <footer class="p-12 bg-slate-100 mt-36">
         <div class="container mx-auto">
             <div class="flex items-center justify-between">
                 <p class="text-xl text-gray-500">Ngôn ngữ phát triển ứng dụng mới</p>

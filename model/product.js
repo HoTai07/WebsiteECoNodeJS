@@ -11,10 +11,6 @@ var productSchema = new mongoose.Schema({
     title: String,
     price: Number,
     SLT: Number,
-    Brandid: {  // Tham chiếu đến BrandSchema thông qua Brandid
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'brand'
-    },
     Typeid: {  // Tham chiếu đến BrandSchema thông qua Brandid
         type: mongoose.Schema.Types.ObjectId,
         ref: 'type'

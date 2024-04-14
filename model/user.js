@@ -46,7 +46,7 @@ userSchema.statics.GetCre = async function (username, password) {
     if (!username || !password) {
         return { error: "phai dien day du username va password" };
     }
-    var user = await this.findOne({ username: username });
+    var user = await this.findOne({ username: username, status: true });
     if (!user) {
         return { error: "user hoac password sai" };
     }

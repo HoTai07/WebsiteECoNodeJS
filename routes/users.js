@@ -7,13 +7,22 @@ var ResHelper = require('../helper/ResponseHelper');
 var customerModel = require('../model/customer');
 var employeeModel = require('../model/employee');
 
-router.get('/', checkLogin, checkAuthorize("user"), async function (req, res, next) {
-  let users = await userModel.find({}).exec();
-  console.log(req.user);
-  ResHelper.RenderRes(res, true, users)
+router.get('/admin/getuser', async function (req, res, next) {
+  let users = await userModel.find({status: true }).limit(8);
+  console.log(users);
+  ResHelper.RenderRes(res, true, users);
 });
 
-router.get('/profile', checkLogin, checkAuthorize("user"), async function (req, res, next) {
+
+
+router.get('/admin/getuser/all', async function (req, res, next) {
+  let users = await userModel.find({ }).exec();
+  console.log(users);
+  ResHelper.RenderRes(res, true, users);
+});
+
+
+router.get('/profile', async function (req, res, next) {
   let customer = await customerModel.findOne({ UserId: req.user._id });
   console.log(req.user);
   ResHelper.RenderRes(res, true, customer)
@@ -51,4 +60,31 @@ router.get('/userRole/:id', async function (req, res, next) {
   
 });
 
+router.delete('/:id', async function (req, res, next) {
+  try {
+    let user = await userModel.findByIdAndUpdate
+      (req.params.id, {
+        status: false
+      }, {
+        new: true
+      }).exec()
+    ResHelper.RenderRes(res, true, user);
+  } catch (error) {
+    ResHelper.RenderRes(res, false, error)
+  }
+});
+
+router.put('/restore/:id', async function (req, res, next) {
+  try {
+    let user = await userModel.findByIdAndUpdate
+      (req.params.id, {
+        status: true
+      }, {
+        new: true
+      }).exec()
+    ResHelper.RenderRes(res, true, user);
+  } catch (error) {
+    ResHelper.RenderRes(res, false, error)
+  }
+});
 module.exports = router;
