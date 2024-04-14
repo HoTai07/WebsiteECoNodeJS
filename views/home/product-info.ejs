@@ -110,28 +110,28 @@
     </style>
 </head>
 <body>
-    <header class="header sticky top-0 z-50">
+    <header class="sticky top-0 z-50 header">
         <!-- Top header -->
-        <div class="top-header relative bg-gray-100">
+        <div class="relative bg-gray-100 top-header">
             <div class="container xl:mx-auto">
                 <div class="flex justify-between">
-                    <div class="welcome flex">
-                        <li class="list-none mr-4 mb-4 mt-4 text-gray-400">Welcome to our shop</li>
-                        <li class="list-none mr-4 mb-4 mt-4 text-gray-400"><i class="text-orange-500 fa-duotone fa-phone mr-2"></i>Call us: 0395xxxxxxxx</li>
+                    <div class="flex welcome">
+                        <li class="mt-4 mb-4 mr-4 text-gray-400 list-none">Welcome to our shop</li>
+                        <li class="mt-4 mb-4 mr-4 text-gray-400 list-none"><i class="mr-2 text-orange-500 fa-duotone fa-phone"></i>Call us: 0395xxxxxxxx</li>
                     </div>
                     <div class="flex flex-row-reverse">
-                        <li class="account list-none mr-4 mb-4 mt-4 text-gray-400 relative transition duration-300">
+                        <li class="relative mt-4 mb-4 mr-4 text-gray-400 list-none transition duration-300 account">
                             <% if(Name) {%>
                                 Xin chào <%= Name.name %>
                             <%} else{%> 
                                 My Account    
                             <%}%>
                             <i class="fa-solid fa-caret-down"></i>
-                            <div class="absolute top-full right-0 hidden bg-white border border-gray-200 p-4 shadow-md" id="hover-content">
+                            <div class="absolute right-0 hidden p-4 bg-white border border-gray-200 shadow-md top-full" id="hover-content">
                                 <div class="flex flex-col">
                                     <% if (user) { %>
                                         <% if (user.data.role == "admin") {%>
-                                             <a id="AdminButton" href="">Manage</a>
+                                             <a id="AdminButton" href="/admin/manage">Manage</a>
                                          <%}%>
                                              <a id="logoutButton" href="">Logout</a>
                                      <% } else { %>
@@ -146,18 +146,19 @@
             </div>
         </div>
         <!-- Bottom header -->
-        <div class="bottom-header bg-white">
+        <div class="bg-white bottom-header">
             <div class="container xl:mx-auto">
                 <div class="flex justify-between">
                     <div class="flex flex-row">
                         <img class="" src="/src/img/logo.png" alt="">
                     </div>
                     <div class="flex flex-row-reverse">
-                        <li class="item list-none mr-5 mb-9 mt-10 text-xl text-gray-700"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></li>
-                        <li class="item list-none mr-5 mb-9 mt-10 text-xl text-gray-700 shadow-md rounded-xl"><input class="border border-none focus:outline-none rounded-xl pl-3 active" type="text" placeholder="Tìm kiếm...."></li>
-                        <a class="item product list-none mr-5 mb-9 mt-10 text-xl text-gray-700" href="">Liên hệ</a>
-                        <a class="item product list-none mr-5 mb-9 mt-10 text-xl text-gray-700" href="">Sản phẩm</a>
-                        <a class="item home list-none mr-5 mb-9 mt-10 text-xl text-gray-700" href="/">Trang chủ</a>
+                        <li class="mt-10 mr-5 text-xl text-gray-700 list-none item mb-9"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></li>
+                        <li class="mt-10 mr-5 text-xl text-gray-700 list-none shadow-md item mb-9 rounded-xl">
+                            <input class="pl-3 border border-none focus:outline-none rounded-xl active" type="text" placeholder="Tìm kiếm...."></li>
+                        <a class="mt-10 mr-5 text-xl text-gray-700 list-none item product mb-9" href="/contact">Liên hệ</a>
+                        <a class="mt-10 mr-5 text-xl text-gray-700 list-none item product mb-9" href="/productlist">Sản phẩm</a>
+                        <a class="mt-10 mr-5 text-xl text-gray-700 list-none item home mb-9" href="/">Trang chủ</a>
                     </div>
                 </div>
             </div>
@@ -166,18 +167,18 @@
 
     <!--Product info-->
     <section>
-        <div class="container mx-auto px-4 py-8">
+        <div class="container px-4 py-8 mx-auto">
             <% if (product){%>
             <div class="flex flex-col lg:flex-row">
-                <div class="lg:w-1/2 border-r border-gray-300 pr-8">
-                    <img src="<%= product.data.image %>" class="w-full h-auto lg:h-full object-cover">
+                <div class="pr-8 border-r border-gray-300 lg:w-1/2">
+                    <img src="<%= product.data.image %>" class="object-cover w-full h-auto lg:h-full">
                 </div>
-                <div class="lg:w-1/2 lg:pl-8 mt-4 lg:mt-0">
-                    <h2 class="text-5xl font-bold mb-9 mt-20"><%= product.data.name %></h2>
-                    <p class="text-3xl font-bold mb-10 text-red-600"><%= product.data.price %></p>
+                <div class="mt-4 lg:w-1/2 lg:pl-8 lg:mt-0">
+                    <h2 class="mt-20 text-5xl font-bold mb-9"><%= product.data.name %></h2>
+                    <p class="mb-10 text-3xl font-bold text-red-600"><%= product.data.price %></p>
                     <% if (user) { %>
                         <% if (user.data.role == "user") {%>
-                            <button id="buttonOrder" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded text-xl">Thanh Toán</button>
+                            <button id="buttonOrder" class="px-6 py-4 text-xl font-bold text-white bg-blue-500 rounded hover:bg-blue-700">Thanh Toán</button>
                         <%}%>
                     <%}%>
                 </div>
@@ -189,7 +190,7 @@
     </section>
 
     <!-- footer -->
-    <footer class="bg-slate-100 mt-36 p-12">
+    <footer class="p-12 bg-slate-100 mt-36">
         <div class="container mx-auto">
             <div class="flex items-center justify-between">
                 <p class="text-xl text-gray-500">Ngôn ngữ phát triển ứng dụng mới</p>

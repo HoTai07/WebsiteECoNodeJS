@@ -10,6 +10,46 @@ var checkAuthorize = require('../middlewares/checkauthorize');
 
 
 //Lấy tất cả
+
+  router.get('/', async function (req, res, next) {
+    try {
+      
+      // Tìm tất cả các sản phẩm không bị xóa
+      const undeletedBooks = await productModel.find({ isDeleted: false });
+      ResHelper.RenderRes(res, true, undeletedBooks)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Lỗi khi truy xuất thất bại');
+    }
+  });
+
+//Đối với admin
+  router.get('/getproductForAdmin', async function (req, res, next) {
+    try {  
+      // Tìm tất cả các sản phẩm không bị xóa
+      const undeletedBooks = await productModel.find({ isDeleted: false }).limit(8);
+      console.log(undeletedBooks);
+      ResHelper.RenderRes(res, true, undeletedBooks)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Lỗi khi truy xuất thất bại');
+    }
+
+  });
+
+  router.get('/getproductForAdminManage', async function (req, res, next) {
+    try {  
+      // Tìm tất cả các sản phẩm không bị xóa
+      const undeletedBooks = await productModel.find({}).limit(8);
+      console.log(undeletedBooks);
+      ResHelper.RenderRes(res, true, undeletedBooks)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Lỗi khi truy xuất thất bại');
+    }
+
+  });
+
   router.get('/BPC', async function (req, res, next) {
     try {
       const type = await TypeModel.findOne({ Typeid: "BPC" });
@@ -107,17 +147,14 @@ router.get('/search', async function (req, res, next) {
   }
 
 //Create new product
-router.post('/', checkLogin, checkAuthorize("admin"), async function (req, res, next) {
+router.post('/', async function (req, res, next) {
     try {
+      console.log(req.body);
       // Kiểm tra xem Brand có tồn tại không
-      const brand = await BrandModel.findOne({ Brandid: req.body.brandid });
-      const type = await TypeModel.findOne({ Typeid : req.body.typeid })
-      if (!brand) {
-          return res.status(404).json({ message: 'Brand not found' });
-      }
-      if (!type) {
-        return res.status(404).json({ message: 'Type not found' });
-    }
+      // const type = await TypeModel.findById(req.body.type );
+      // if (!type) {
+      //   return res.status(404).json({ message: 'Type not found' });
+      // }
 
       // Lấy ngày tháng hiện tại
       const currentDate = new Date();
@@ -131,9 +168,8 @@ router.post('/', checkLogin, checkAuthorize("admin"), async function (req, res, 
         image: req.body.image,
         title: req.body.title,
         SLT: req.body.SLT,
-        Brandid: brand._id,
         price: req.body.price,
-        Typeid: type._id
+        Typeid: req.body.type
       })
       await newproduct.save();
       ResHelper.RenderRes(res, true, newproduct)
@@ -147,6 +183,20 @@ router.post('/', checkLogin, checkAuthorize("admin"), async function (req, res, 
       let product = await productModel.findByIdAndUpdate
         (req.params.id, {
           isDeleted: true
+        }, {
+          new: true
+        }).exec()
+      ResHelper.RenderRes(res, true, product);
+    } catch (error) {
+      ResHelper.RenderRes(res, false, error)
+    }
+  });
+
+  router.put('/restore/:id', checkLogin, checkAuthorize("admin"), async function (req, res, next) {
+    try {
+      let product = await productModel.findByIdAndUpdate
+        (req.params.id, {
+          isDeleted: false
         }, {
           new: true
         }).exec()

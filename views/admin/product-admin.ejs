@@ -14,134 +14,161 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="bg-blue-600 py-4 px-6 h-full w-64 fixed top-0 left-0 bottom-0 overflow-y-auto">
+    <nav class="fixed top-0 bottom-0 left-0 w-64 h-full px-6 py-4 overflow-y-auto bg-blue-600">
         <div class="flex items-center">
-            <img class="-ml-8" src="/src/img/logo.png" alt="">
-            <h1 class="text-white -ml-6 text-xl font-semibold">VZ Store</h1>
+            <img class="-ml-8" src="/public/img/logo.png" alt="">
+            <h1 class="-ml-6 text-xl font-semibold text-white">VZ Store</h1>
         </div>
-        <ul class="mt-2 text-white -ml-5">
+        <ul class="mt-2 -ml-5 text-white">
             <li class="mb-4">
-                <div class="flex items-center rounded hover:bg-blue-700 px-6">
+                <div class="flex items-center px-6 rounded hover:bg-blue-700">
                     <i class="fa-solid fa-house"></i>
-                    <a href="#" class="block py-2 text-xl px-4 ">Trang chủ</a>
+                    <a href="/admin/manage" class="block px-4 py-2 text-xl ">Trang chủ</a>
                 </div>
             </li>
             <li class="mb-4">
-                <div class="flex items-center rounded hover:bg-blue-700 px-6">
+                <div class="flex items-center px-6 rounded hover:bg-blue-700">
                     <i class="fa-solid fa-user"></i>
-                    <a href="#" class="block py-2 text-xl px-4 ">Tài khoản</a>
+                    <a href="/admin/account" class="block px-4 py-2 text-xl ">Tài khoản</a>
                 </div>
             </li>
             <li class="mb-4">
-                <div class="flex items-center rounded hover:bg-blue-700 px-6">
+                <div class="flex items-center px-6 rounded hover:bg-blue-700">
                     <i class="fa-regular fa-bars-staggered"></i>
-                    <a href="#" class="block py-2 text-xl px-4 ">Sản phẩm</a>
+                    <a href="/admin/product" class="block px-4 py-2 text-xl ">Sản phẩm</a>
                 </div>
             </li>
             <li class="mb-4">
-                <div class="flex items-center rounded hover:bg-blue-700 px-6">
-                    <i class="fa-solid fa-right-from-bracket rotate-180"></i>
-                    <a href="#" class="block py-2 text-xl px-4 ">Đăng xuất</a>
+                <div class="flex items-center px-6 rounded hover:bg-blue-700">
+                    <i class="rotate-180 fa-solid fa-right-from-bracket"></i>
+                    <a id="logoutButton" href="" class="block px-4 py-2 text-xl ">Đăng xuất</a>
                 </div>
             </li>
         </ul>
     </nav>
 
     <!-- Content -->
-    <div class="ml-64 p-8">
+    <div class="p-8 ml-64">
         <div class="grid grid-cols-2 gap-8">
             <!-- Product List -->
-            <div class="bg-white p-6 rounded shadow-md">
+            <div class="p-6 bg-white rounded shadow-md">
                 <div class="flex justify-between">
-                    <h2 class="text-xl font-semibold mb-4">Sản phẩm mới nhất</h2>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded mb-4 ml-9">Thêm sản phẩm</button>
+                    <h2 class="mb-4 text-xl font-semibold">Sản phẩm mới nhất</h2>
+                    <button id="IntoVIewAddNew" type="submit" class="px-3 py-1 mb-4 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 ml-9">Thêm sản phẩm</button>
                 </div>
                 <table class="w-full">
                     <thead>
                         <tr>
-                            <th class="border px-4 py-2">ID</th>
-                            <th class="border px-4 py-2">Tên sản phẩm</th>
-                            <th class="border px-4 py-2">Giá</th>
-                            <th class="border px-4 py-2"></th>
-                            <th class="border px-4 py-2"></th>
+                            <th class="px-4 py-2 border">ID</th>
+                            <th class="px-4 py-2 border">Tên sản phẩm</th>
+                            <th class="px-4 py-2 border">Giá</th>
+                            <th class="px-4 py-2 border">Trạng thái</th>
+                            <th class="px-4 py-2 border"></th>
+                            <th class="px-4 py-2 border"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <!-- Product list content goes here -->
-                        <tr>
-                            <td class="border px-4 py-2">1</td>
-                            <td class="border px-4 py-2">Product 1</td>
-                            <td class="border px-4 py-2 text-green-600 font-semibold">10.000.000đ</td>
-                            <td class="border px-4 py-2 text-blue-500 hover:text-blue-800"><a href="">Chỉnh sửa</a></td>
-                            <td class="border px-4 py-2 text-red-500 hover:text-red-800"><a href="">Xóa sản phẩm</a></td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-2">2</td>
-                            <td class="border px-4 py-2">Product 2</td>
-                            <td class="border px-4 py-2 text-green-600 font-semibold">10.000.000đ</td>
-                            <td class="border px-4 py-2 text-blue-500 hover:text-blue-800"><a href="">Chỉnh sửa</a></td>
-                            <td class="border px-4 py-2 text-red-500 hover:text-red-800"><a href="">Xóa sản phẩm</a></td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-2">3</td>
-                            <td class="border px-4 py-2">Product 3</td>
-                            <td class="border px-4 py-2 text-green-600 font-semibold">10.000.000đ</td>
-                            <td class="border px-4 py-2 text-blue-500 hover:text-blue-800"><a href="">Chỉnh sửa</a></td>
-                            <td class="border px-4 py-2 text-red-500 hover:text-red-800"><a href="">Xóa sản phẩm</a></td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-2">4</td>
-                            <td class="border px-4 py-2">Product 4</td>
-                            <td class="border px-4 py-2 text-green-600 font-semibold">10.000.000đ</td>
-                            <td class="border px-4 py-2 text-blue-500 hover:text-blue-800"><a href="">Chỉnh sửa</a></td>
-                            <td class="border px-4 py-2 text-red-500 hover:text-red-800"><a href="">Xóa sản phẩm</a></td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-2">5</td>
-                            <td class="border px-4 py-2">Product 5</td>
-                            <td class="border px-4 py-2 text-green-600 font-semibold">10.000.000đ</td>
-                            <td class="border px-4 py-2 text-blue-500 hover:text-blue-800"><a href="">Chỉnh sửa</a></td>
-                            <td class="border px-4 py-2 text-red-500 hover:text-red-800"><a href="">Xóa sản phẩm</a></td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-2">6</td>
-                            <td class="border px-4 py-2">Product 6</td>
-                            <td class="border px-4 py-2 text-green-600 font-semibold">10.000.000đ</td>
-                            <td class="border px-4 py-2 text-blue-500 hover:text-blue-800"><a href="">Chỉnh sửa</a></td>
-                            <td class="border px-4 py-2 text-red-500 hover:text-red-800"><a href="">Xóa sản phẩm</a></td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-2">7</td>
-                            <td class="border px-4 py-2">Product 7</td>
-                            <td class="border px-4 py-2 text-green-600 font-semibold">10.000.000đ</td>
-                            <td class="border px-4 py-2 text-blue-500 hover:text-blue-800"><a href="">Chỉnh sửa</a></td>
-                            <td class="border px-4 py-2 text-red-500 hover:text-red-800"><a href="">Xóa sản phẩm</a></td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-2">8</td>
-                            <td class="border px-4 py-2">Product 8</td>
-                            <td class="border px-4 py-2 text-green-600 font-semibold">10.000.000đ</td>
-                            <td class="border px-4 py-2 text-blue-500 hover:text-blue-800"><a href="">Chỉnh sửa</a></td>
-                            <td class="border px-4 py-2 text-red-500 hover:text-red-800"><a href="">Xóa sản phẩm</a></td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-2">9</td>
-                            <td class="border px-4 py-2">Product 9</td>
-                            <td class="border px-4 py-2 text-green-600 font-semibold">10.000.000đ</td>
-                            <td class="border px-4 py-2 text-blue-500 hover:text-blue-800"><a href="">Chỉnh sửa</a></td>
-                            <td class="border px-4 py-2 text-red-500 hover:text-red-800"><a href="">Xóa sản phẩm</a></td>
-                        </tr>
-                        <tr>
-                            <td class="border px-4 py-2">10</td>
-                            <td class="border px-4 py-2">Product 10</td>
-                            <td class="border px-4 py-2 text-green-600 font-semibold">10.000.000đ</td>
-                            <td class="border px-4 py-2 text-blue-500 hover:text-blue-800"><a href="">Chỉnh sửa</a></td>
-                            <td class="border px-4 py-2 text-red-500 hover:text-red-800"><a href="">Xóa sản phẩm</a></td>
-                        </tr>
+                        <% if(productlist && productlist.data.length > 0) {%>
+                            <% var countproduct = 1; %>
+                            <% productlist.data.forEach(itemProduct => { %>
+                            <tr>
+                                <td class="px-4 py-2 border"><%= countproduct %></td>
+                                <td class="px-4 py-2 border"><%= itemProduct.name %></td>
+                                <td class="px-4 py-2 font-semibold text-green-600 border"><%= itemProduct.price %> đ</td>
+                                <% if(itemProduct.isDeleted == false ) {%>
+                                    <td class="px-4 py-2 font-semibold text-green-600 border">Đang bán</td>
+                                <%} else {%>
+                                    <td class="px-4 py-2 text-red-500 border hover:text-red-800">Ngừng bán</td>
+                                <%}%>
+                                <td class="px-4 py-2 text-blue-500 border hover:text-blue-800"><a id="restore" href="/restore/<%= itemProduct._id %>">Mở bán</a></td>
+                                <td class="px-4 py-2 text-red-500 border hover:text-red-800"><a id="delete" href="/<%= itemProduct._id %>">Xóa sản phẩm</a></td>
+                            </tr>
+                            <% countproduct++; }); %>
+                        <% } else { %>
+                            <p>No product available</p>
+                        <% } %>
+                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </body>
+<script>
+    document.getElementById('logoutButton').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        
+        console.log("Logout Successfully");
+        fetch('/api/v1/vzconn/auth/logout', {
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); 
+            if (data.success) {
+                window.location.href = '/';
+            } 
+        })
+        .catch(error => {
+            console.error('Error:', error); 
+        });
+    });
+
+    const links = document.querySelectorAll('a');
+
+    links.forEach(link => {
+        link.addEventListener('click', function(event) {
+            
+            
+            const href = this.getAttribute('href');
+            const id = href.split('/').pop(); 
+            
+            if (this.id === 'restore') {
+                event.preventDefault(); 
+                fetch('/api/v1/vzconn/product/restore/'+id, { method: 'PUT' }) 
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Restore successful:', data);
+                        window.location.reload();
+                        
+                    })
+                    .catch(error => {
+                        console.error('Error restoring:', error);
+                        
+                    });
+            } else if (this.id === 'delete') {
+                event.preventDefault(); 
+                fetch('/api/v1/vzconn/product/'+id, { method: 'DELETE' }) // Gửi yêu cầu DELETE đến API
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Delete successful:', data);
+                        window.location.reload();
+                        
+                    })
+                    .catch(error => {
+                        console.error('Error deleting:', error);
+                        
+                    });
+            }
+        });
+    });
+
+   
+    const addNewButton = document.getElementById('IntoVIewAddNew');
+
+    addNewButton.addEventListener('click', function() {
+        window.location.href = '/admin/AddnewProduct';
+    });
+</script>
 </html>

@@ -14,65 +14,80 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="bg-blue-600 py-4 px-6 h-full w-64 fixed top-0 left-0 bottom-0 overflow-y-auto">
+    <nav class="fixed top-0 bottom-0 left-0 w-64 h-full px-6 py-4 overflow-y-auto bg-blue-600">
         <div class="flex items-center">
-            <img class="-ml-8" src="/src/img/logo.png" alt="">
-            <h1 class="text-white -ml-6 text-xl font-semibold">VZ Store</h1>
+            <img class="-ml-8" src="/public/img/logo.png" alt="">
+            <h1 class="-ml-6 text-xl font-semibold text-white">VZ Store</h1>
         </div>
-        <ul class="mt-2 text-white -ml-5">
+        <ul class="mt-2 -ml-5 text-white">
             <li class="mb-4">
-                <div class="flex items-center rounded hover:bg-blue-700 px-6">
+                <div class="flex items-center px-6 rounded hover:bg-blue-700">
                     <i class="fa-solid fa-house"></i>
-                    <a href="#" class="block py-2 text-xl px-4 ">Trang chủ</a>
+                    <a href="/admin/manage" class="block px-4 py-2 text-xl ">Trang chủ</a>
                 </div>
             </li>
             <li class="mb-4">
-                <div class="flex items-center rounded hover:bg-blue-700 px-6">
+                <div class="flex items-center px-6 rounded hover:bg-blue-700">
                     <i class="fa-solid fa-user"></i>
-                    <a href="#" class="block py-2 text-xl px-4 ">Tài khoản</a>
+                    <a href="/admin/account" class="block px-4 py-2 text-xl ">Tài khoản</a>
                 </div>
             </li>
             <li class="mb-4">
-                <div class="flex items-center rounded hover:bg-blue-700 px-6">
+                <div class="flex items-center px-6 rounded hover:bg-blue-700">
                     <i class="fa-regular fa-bars-staggered"></i>
-                    <a href="#" class="block py-2 text-xl px-4 ">Sản phẩm</a>
+                    <a href="/admin/product" class="block px-4 py-2 text-xl ">Sản phẩm</a>
                 </div>
             </li>
             <li class="mb-4">
-                <div class="flex items-center rounded hover:bg-blue-700 px-6">
-                    <i class="fa-solid fa-right-from-bracket rotate-180"></i>
-                    <a href="#" class="block py-2 text-xl px-4 ">Đăng xuất</a>
+                <div class="flex items-center px-6 rounded hover:bg-blue-700">
+                    <i class="rotate-180 fa-solid fa-right-from-bracket"></i>
+                    <a id="logoutButton" href="#" class="block px-4 py-2 text-xl ">Đăng xuất</a>
                 </div>
             </li>
         </ul>
     </nav>
 
     <!-- Content -->
-    <div class="ml-64 p-8">
+    <div class="p-8 ml-64">
         <div class="grid grid-cols-2 gap-14">
             <!-- Product List -->
-            <div class="bg-white p-6 rounded shadow-md">
-                <div class="container mx-auto p-8">
-                    <h2 class="text-2xl font-semibold mb-4">Thêm sản phẩm mới</h2>
-                    <form>
+            <div class="p-6 bg-white rounded shadow-md">
+                <div class="container p-8 mx-auto">
+                    <h2 class="mb-4 text-2xl font-semibold">Thêm sản phẩm mới</h2>
+                    <form id="CreatForm">
                         <div class="mb-4">
-                            <label for="name" class="block text-gray-700 font-bold mb-2">Tên sản phẩm</label>
-                            <input type="text" id="name" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <label for="name" class="block mb-2 font-bold text-gray-700">Tên sản phẩm</label>
+                            <input type="text" id="name" name="name" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
                         </div>
                         <div class="mb-4">
-                            <label for="image" class="block text-gray-700 font-bold mb-2">Đường dẫn hình ảnh</label>
-                            <input type="text" id="image" name="image" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <label for="image" class="block mb-2 font-bold text-gray-700">Đường dẫn hình ảnh</label>
+                            <input type="text" id="image" name="image" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
                         </div>
                         <div class="mb-4">
-                            <label for="price" class="block text-gray-700 font-bold mb-2">Giá sản phẩm</label>
-                            <input type="text" id="price" name="price" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <label for="price" class="block mb-2 font-bold text-gray-700">Giá sản phẩm</label>
+                            <input type="text" id="price" name="price" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
                         </div>
                         <div class="mb-4">
-                            <label for="price" class="block text-gray-700 font-bold mb-2">Thông tin sản phẩm</label>
-                            <textarea id="price" name="price" class="shadow appearance-none border rounded w-full py-24 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+                            <label for="SLT" class="block mb-2 font-bold text-gray-700">Số lượng</label>
+                            <input type="text" id="SLT" name="SLT" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
+                        </div>
+                        <div class="mb-4">
+                            <label for="price" class="block mb-2 font-bold text-gray-700">Loại sản phẩm</label> 
+                            <select id="type" name="type" class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline">
+                                <option value="">Chọn loại sản phẩm</option>
+                                <% if(Typelist && Typelist.length > 0) {%>
+                                    <% Typelist.forEach(item => { %>
+                                        <option value="<%= item._id %>"><%= item.name %></option>
+                                    <% }); %>
+                                <%} %>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="title" class="block mb-2 font-bold text-gray-700">Thông tin sản phẩm</label>
+                            <textarea id="title" name="title" class="w-full px-3 py-24 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"></textarea>
                         </div>                        
                         <div class="flex items-center justify-between">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-10 rounded focus:outline-none focus:shadow-outline">Thêm sản phẩm</button>
+                            <button type="submit" class="px-4 py-2 mt-10 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline">Thêm sản phẩm</button>
                         </div>
                     </form>
                 </div>
@@ -80,4 +95,64 @@
         </div>
     </div>
 </body>
+<script>
+    document.getElementById('logoutButton').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        
+        console.log("Logout Successfully");
+        fetch('/api/v1/vzconn/auth/logout', {
+            method: 'POST',
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); 
+            if (data.success) {
+                window.location.href = '/';
+            } 
+        })
+        .catch(error => {
+            console.error('Error:', error); 
+        });
+    });
+
+    document.getElementById('CreatForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        
+        const name = document.getElementById('name').value;
+        const image = document.getElementById('image').value;
+        const price = document.getElementById('price').value;
+        const SLT = document.getElementById('SLT').value;
+        const type = document.getElementById('type').value; 
+        const title = document.getElementById('title').value;
+       
+        const data = {
+            name: name,
+            image: image,
+            price: price,
+            SLT: SLT,
+            type: type,
+            title: title
+        };
+
+        console.log(data);
+        fetch('/api/v1/vzconn/product/', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+              }
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); 
+            if (data.success) {
+                // Đăng nhập thành công, chuyển hướng sang trang login
+                window.location.href = '/admin/product'; // Đường dẫn của trang Login
+            } 
+        })
+        .catch(error => {
+            console.error('Error:', error); 
+        });
+    });
+</script>
 </html>
