@@ -723,6 +723,16 @@ app.get('/admin/AddnewProduct', cors(), (req, res) => {
   
 });
 
+//Forgot Password
+app.get('/forgot-password', cors(), (req, res) => {
+  res.render('auth/forgotPassword');
+});
+
+//Reset password
+app.get('/ResetPassword', cors(), (req, res) => {
+  res.render('auth/ResetPassword');
+});
+
 //Database config
 mongoose.connect('mongodb://localhost:27017/TeamVZ').then(function () {
   console.log("conneted");
