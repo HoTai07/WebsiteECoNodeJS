@@ -3,7 +3,7 @@ Post http://localhost:3000/api/v1/vzconn/auth/register
 Content-Type: application/json
 
 {
-    "username": "truongtran05",
+    "username": "truongtran06",
     "password": "Truong@123",
     "email": "trantruong@gmail.com",
     "fullname": "Trần Nguyên Trường",

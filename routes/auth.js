@@ -164,11 +164,11 @@ router.post("/forgotPassword", userValidator.checkmail(), async function (req, r
     
     await user.save()
     try {
-      let url = `http://${config.hostName}/api/v1/vzconn/auth/ResetPassword/${token}`;
-      let message = `click zo url de reset passs: ${url}`
+      let url = `http://${config.hostName}/ResetPassword?token=${token}`;
+      let message = `Bạn đã quên mật khẩu? Hãy bấm vào đây để reset: ${url}`
       console.log(userIn.Email);
       sendmail(message, userIn.Email)
-      ResHelper.RenderRes(res, true, "Thanh cong");
+      ResHelper.RenderRes(res, true, "Đã gửi mail thanh cong");
     } catch (error) {
       console.log(error);
       user.resetPasswordToken = undefined;
